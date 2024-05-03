@@ -71,7 +71,7 @@ INSERT INTO Employee (EmployeeName, Department, Salary, Email, Age) VALUES
 
 
 
-
+--second oldest person in the table
 --SELECT MAX(Age) ,EmployeeName FROM Employee
 --WHERE Age IN (SELECT DISTINCT MAX(AGE)FROM Employee WHERE Age < (SELECT MAX(Age) FROM Employee))
 --GROUP BY EmployeeName,Age
@@ -85,20 +85,36 @@ FROM (
 ) AS SecondHighestAge
 ORDER BY Age ASC;
 
---SELECT EmployeeName, Age FROM Employee
+
+
+--SELECT EmployeeName, Age
+--FROM Employee
 --ORDER BY Age DESC
---LIMIT 1 OFFSET 1;
+--OFFSET 1 ROW
+--FETCH NEXT 1 ROW ONLY;
+
+
+--SELECT EmployeeName,
+--       Age
+--FROM (
+--    SELECT EmployeeName,
+--           Age,
+--           RANK() OVER (ORDER BY Age DESC) AS rank
+--    FROM Employee
+--) AS emp
+--WHERE rank = 2;
+
+
 
 
 
 SELECT * FROM Employee WHERE Age = (SELECT MAX(Age) FROM Employee);
 
 
-
-
 SELECT Department, COUNT(*) AS NumberOfPersons
 FROM Employee
 GROUP BY Department;
+
 
 
 SELECT EmployeeID,EmployeeName, Department FROM Employee
